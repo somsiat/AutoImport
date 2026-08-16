@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site.js';
+---
+
+<BaseLayout title="AutoImport USA - sprowadzanie samochodów z USA">
+	<main>
+		<section class="max-w-5xl mx-auto px-4 py-16 text-center">
+			<h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">
+				Sprowadzamy samochody z USA - szybko i bezpiecznie
+			</h1>
+			<p class="text-lg text-slate-700 mb-8 max-w-2xl mx-auto">
+			Jesteśmy zespołem specjalizującym się w imporcie samochodów z aukcji amerykańskich. Prowadzimy Cię przez cały proces — od wyboru auta do odbioru w Polsce.</p>
+
+			<a href="/o-nas" class="text-blue-600 font-semibold hover:underline">
+				Czytaj więcej →
+			</a>
+			<br>
+			<br>
+			<a href={`https://wa.me/${site.whatsappNumber}`} class="inline-block bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600">
+				Napisz na WhatsApp
+			</a>
+		</section>
+
+		<section class="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
+			<div class="bg-white rounded-lg border border-slate-200 p-6 text-center">
+				<h2 class="font-semibold text-slate-900 mb-2">Sprawdzone aukcje</h2>
+				<p class="text-slate-700 text-sm">
+					Korzystamy z Copart i IAAI — pełna historia i stan techniczny auta przed zakupem.
+				</p>
+			</div>
+			<div class="bg-white rounded-lg border border-slate-200 p-6 text-center">
+				<h2 class="font-semibold text-slate-900 mb-2">Pełna dokumentacja</h2>
+				<p class="text-slate-700 text-sm">
+					Zajmujemy się formalnościami celnymi i rejestracją — Ty nie musisz się w to zagłębiać.
+				</p>
+			</div>
+			<div class="bg-white rounded-lg border border-slate-200 p-6 text-center">
+				<h2 class="font-semibold text-slate-900 mb-2">Wsparcie na każdym etapie</h2>
+				<p class="text-slate-700 text-sm">
+					Informujemy Cię o statusie auta od zakupu aż do odbioru.
+				</p>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+

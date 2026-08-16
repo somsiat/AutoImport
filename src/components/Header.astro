@@ -1,0 +1,19 @@
+---
+import { site } from '../data/site.js';
+---
+
+<header class="bg-white border-b border-slate-200">
+	<div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-4">
+		<a href="/" class="text-xl font-bold text-blue-600">
+			AutoImport <span class="text-slate-900">USA</span>
+		</a>
+		<nav class="flex items-center gap-6">
+			<a href="/o-nas" class="text-slate-700 hover:text-blue-600">O nas</a>
+			<a href="/auta" class="text-slate-700 hover:text-blue-600">Auta</a>
+			<a href="/kontakt" class="text-slate-700 hover:text-blue-600">Kontakt</a>
+			<a href={`https://wa.me/${site.whatsappNumber}`} class="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600">
+				WhatsApp
+			</a>
+		</nav>
+	</div>
+</header>
