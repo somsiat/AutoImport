@@ -1,0 +1,55 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { contact } from '~/config/site';
+
+const links = [
+  { label: 'Jak sprowadzamy auta', href: '/jak-to-dziala' },
+  { label: 'Oferta i cennik', href: '/oferta' },
+  { label: 'Koszty importu', href: '/koszty-sprowadzenia-samochodu-z-usa' },
+  { label: 'Realizacje', href: '/realizacje' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Kontakt', href: '/kontakt' },
+];
+---
+
+<BaseLayout
+  title="Strona nie została znaleziona"
+  description="Pod tym adresem nic nie ma. Sprawdź najczęściej odwiedzane strony albo napisz do nas."
+  noindex
+>
+  <section class="bg-ink-900">
+    <div class="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8">
+      <p class="text-6xl font-extrabold text-accent-400">404</p>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        Tej strony nie ma pod tym adresem
+      </h1>
+      <p class="mt-4 text-lg text-ink-300">
+        Być może zmienił się jej adres. Poniżej strony, których szuka większość osób.
+      </p>
+
+      <ul class="mt-10 grid gap-3 sm:grid-cols-2">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="block rounded-xl border border-white/15 px-5 py-4 font-semibold text-white hover:bg-white/10"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href={contact.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        class="mt-8 inline-flex rounded-xl bg-accent-500 px-7 py-4 font-bold text-ink-900 hover:bg-accent-400"
+      >
+        Napisz na WhatsAppie
+      </a>
+    </div>
+  </section>
+</BaseLayout>

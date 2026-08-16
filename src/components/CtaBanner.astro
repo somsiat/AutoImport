@@ -1,0 +1,42 @@
+---
+import { contact } from '~/config/site';
+
+interface Props {
+  title?: string;
+  body?: string;
+}
+
+const {
+  title = 'Powiedz, jakie auto chcesz — wyliczymy koszt „pod klucz”',
+  body = 'Bezpłatna wycena w ciągu 2 godzin roboczych. Bez zobowiązań i bez zaliczki na tym etapie.',
+} = Astro.props;
+---
+
+<section class="bg-ink-900">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div
+      class="flex flex-col items-start gap-8 rounded-3xl bg-gradient-to-br from-accent-500 to-accent-600 p-8 sm:p-12 lg:flex-row lg:items-center lg:justify-between"
+    >
+      <div class="max-w-2xl">
+        <h2 class="text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{title}</h2>
+        <p class="mt-3 text-lg text-ink-900/80">{body}</p>
+      </div>
+      <div class="flex w-full shrink-0 flex-col gap-3 sm:w-auto sm:flex-row">
+        <a
+          href="/kontakt"
+          class="rounded-xl bg-ink-900 px-6 py-4 text-center text-base font-bold text-white transition-colors hover:bg-ink-800"
+        >
+          Wypełnij formularz
+        </a>
+        <a
+          href={contact.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          class="rounded-xl border-2 border-ink-900 px-6 py-4 text-center text-base font-bold text-ink-900 transition-colors hover:bg-ink-900/10"
+        >
+          Napisz na WhatsAppie
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

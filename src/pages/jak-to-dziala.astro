@@ -1,0 +1,120 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import PageHero from '~/components/PageHero.astro';
+import CtaBanner from '~/components/CtaBanner.astro';
+import Faq from '~/components/Faq.astro';
+import { steps, faq } from '~/data/content';
+import { faqSchema } from '~/lib/schema';
+
+const documents = [
+  'Tytuł własności (Certificate of Title) lub Bill of Sale',
+  'Faktura zakupu z aukcji',
+  'List przewozowy Bill of Lading',
+  'Dokument odprawy celnej SAD',
+  'Potwierdzenie zapłaty akcyzy (AKC-U/S)',
+  'Tłumaczenia przysięgłe dokumentów',
+  'Zaświadczenie z badania technicznego',
+];
+
+const processFaq = faq.slice(0, 4);
+---
+
+<BaseLayout
+  title="Jak sprowadzamy samochody z USA — proces"
+  description="Cały proces importu auta z USA: od ustalenia budżetu i licytacji na Copart, przez transport morski i odprawę celną, po naprawę i rejestrację w Polsce. 8–12 tygodni."
+  breadcrumbs={[{ name: 'Jak to działa', href: '/jak-to-dziala' }]}
+  schemas={[faqSchema(processFaq)]}
+>
+  <PageHero
+    eyebrow="Proces"
+    title="Jak sprowadzamy samochód z USA — krok po kroku"
+    lead="Osiem etapów, około 8–12 tygodni i jedna cena ustalona na starcie. Poniżej dokładnie to, co dzieje się z Twoim autem i kiedy wchodzą płatności."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <ol class="relative space-y-10 border-l-2 border-ink-100 pl-8">
+        {
+          steps.map((step, i) => (
+            <li class="relative">
+              <span
+                class="absolute -left-[3.1rem] grid h-10 w-10 place-items-center rounded-full bg-ink-900 font-extrabold text-accent-400"
+              >
+                {i + 1}
+              </span>
+              <h2 class="text-xl font-bold text-ink-900">{step.title}</h2>
+              <p class="mt-2 leading-relaxed text-ink-500">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-ink-50 py-16 sm:py-24">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div>
+        <h2 class="text-3xl font-extrabold tracking-tight text-ink-900">
+          Dokumenty, które od nas dostajesz
+        </h2>
+        <p class="mt-4 text-ink-500">
+          Kompletna teczka do rejestracji w wydziale komunikacji. Nie musisz niczego dokładać ani
+          tłumaczyć samodzielnie.
+        </p>
+        <ul class="mt-6 space-y-3">
+          {
+            documents.map((doc) => (
+              <li class="flex gap-3">
+                <svg
+                  class="mt-1 h-5 w-5 shrink-0 text-accent-600"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  aria-hidden="true"
+                >
+                  <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="text-ink-700">{doc}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="rounded-2xl bg-white p-8 shadow-sm">
+        <h2 class="text-2xl font-extrabold tracking-tight text-ink-900">Harmonogram płatności</h2>
+        <dl class="mt-6 space-y-6">
+          <div>
+            <dt class="font-bold text-ink-900">1. Przed licytacją — 10% limitu</dt>
+            <dd class="mt-1 text-ink-500">
+              Zaliczka zabezpieczająca depozyt aukcyjny. Jeśli nie wygramy żadnej licytacji, wracają
+              do Ciebie w całości.
+            </dd>
+          </div>
+          <div>
+            <dt class="font-bold text-ink-900">2. Po wygraniu aukcji — cena auta</dt>
+            <dd class="mt-1 text-ink-500">
+              Aukcja wymaga zapłaty w ciągu 2 dni roboczych, inaczej przepada wadium.
+            </dd>
+          </div>
+          <div>
+            <dt class="font-bold text-ink-900">3. Po dopłynięciu — transport i cło</dt>
+            <dd class="mt-1 text-ink-500">
+              Fracht, cło, VAT i akcyza rozliczane po dokumentach, bez marży na kosztach urzędowych.
+            </dd>
+          </div>
+          <div>
+            <dt class="font-bold text-ink-900">4. Przy odbiorze — naprawa i usługa</dt>
+            <dd class="mt-1 text-ink-500">
+              Płacisz dopiero, gdy auto jest gotowe, po przeglądzie i z dokumentami.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={processFaq} title="Pytania o proces" />
+  <CtaBanner />
+</BaseLayout>

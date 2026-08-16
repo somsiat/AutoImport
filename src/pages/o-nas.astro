@@ -1,0 +1,123 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import PageHero from '~/components/PageHero.astro';
+import CtaBanner from '~/components/CtaBanner.astro';
+import { stats } from '~/data/content';
+import { site, address } from '~/config/site';
+
+const team = [
+  {
+    name: 'Imię Nazwisko', // PLACEHOLDER
+    role: 'Zakupy i licytacje',
+    bio: 'Odpowiada za wybór aut na aukcjach i wycenę kosztu naprawy. Ponad 800 wylicytowanych samochodów.',
+  },
+  {
+    name: 'Imię Nazwisko', // PLACEHOLDER
+    role: 'Logistyka i odprawa celna',
+    bio: 'Prowadzi transport, fracht morski oraz dokumentację celną i akcyzową.',
+  },
+  {
+    name: 'Imię Nazwisko', // PLACEHOLDER
+    role: 'Warsztat blacharsko-lakierniczy',
+    bio: 'Kieruje naprawami i odpowiada za jakość wykończenia przed przekazaniem auta.',
+  },
+];
+---
+
+<BaseLayout
+  title="O nas — importer samochodów z USA od 2016 roku"
+  description="Jesteśmy zespołem, który sprowadził ponad 850 samochodów z USA i Kanady. Własny warsztat, licytacje na kontach firmowych i pełna obsługa formalności."
+  breadcrumbs={[{ name: 'O nas', href: '/o-nas' }]}
+>
+  <PageHero
+    eyebrow="O nas"
+    title="Sprowadzamy auta z USA od 2016 roku"
+    lead="Zaczynaliśmy od jednego Mustanga sprowadzonego dla siebie. Dziś prowadzimy pełny import z własnym warsztatem, kontami na Copart i IAAI oraz stałym agentem celnym."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div class="space-y-5 text-lg leading-relaxed text-ink-700">
+        <h2 class="text-3xl font-extrabold tracking-tight text-ink-900">Jak pracujemy</h2>
+        <p>
+          Import auta z USA to kilkanaście etapów, na których łatwo stracić pieniądze: zła ocena
+          uszkodzeń, przepłacona licytacja, niedoszacowana akcyza, warsztat, który przetrzymuje auto
+          trzy miesiące. Zbudowaliśmy proces tak, żeby każdy z tych etapów był u nas, a nie u
+          podwykonawcy, którego nie kontrolujemy.
+        </p>
+        <p>
+          Dlatego mówimy klientom „nie" częściej niż konkurencja. Jeśli auto ma naruszoną strukturę
+          nośną albo ślady zalania, odpuszczamy — nawet gdy cena wygląda atrakcyjnie. Jeśli import
+          konkretnego modelu nie ma ekonomicznego sensu, mówimy to na pierwszej rozmowie, zamiast
+          brać zlecenie za wszelką cenę.
+        </p>
+        <p>
+          Pracujemy na stałej cenie ustalonej przed licytacją. Koszty urzędowe i transportowe
+          rozliczamy według dokumentów, bez marży, a nasze wynagrodzenie jest jawne od początku.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <dl class="grid grid-cols-2 gap-4">
+          {
+            stats.map((stat) => (
+              <div class="rounded-2xl bg-ink-50 p-6">
+                <dt class="sr-only">{stat.label}</dt>
+                <dd>
+                  <span class="block text-3xl font-extrabold text-accent-600">{stat.value}</span>
+                  <span class="mt-1 block text-sm text-ink-500">{stat.label}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="rounded-2xl border border-ink-100 p-6">
+          <h3 class="text-lg font-bold text-ink-900">Dane firmy</h3>
+          <dl class="mt-4 space-y-2 text-sm">
+            <div class="flex justify-between gap-4">
+              <dt class="text-ink-500">Nazwa</dt>
+              <dd class="text-right font-medium">{site.legalName}</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-ink-500">NIP</dt>
+              <dd class="text-right font-medium">{site.vatId}</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-ink-500">Siedziba</dt>
+              <dd class="text-right font-medium">
+                {address.street}, {address.postalCode} {address.city}
+              </dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-ink-500">Na rynku od</dt>
+              <dd class="text-right font-medium">{site.foundingYear}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-extrabold tracking-tight text-ink-900">Zespół</h2>
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        {
+          team.map((person) => (
+            <article class="rounded-2xl bg-white p-6 shadow-sm">
+              <div class="grid aspect-square w-20 place-items-center rounded-full bg-ink-100 text-xs text-ink-500">
+                Foto
+              </div>
+              <h3 class="mt-4 text-lg font-bold text-ink-900">{person.name}</h3>
+              <p class="text-sm font-semibold text-accent-600">{person.role}</p>
+              <p class="mt-2 text-sm leading-relaxed text-ink-500">{person.bio}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+</BaseLayout>

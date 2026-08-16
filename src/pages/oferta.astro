@@ -1,0 +1,201 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import PageHero from '~/components/PageHero.astro';
+import CtaBanner from '~/components/CtaBanner.astro';
+import { serviceSchema } from '~/lib/schema';
+
+const packages = [
+  {
+    name: 'Wyszukiwanie i licytacja',
+    price: 'od 2 500 zł',
+    for: 'Masz warsztat lub sprowadzasz kolejne auto i potrzebujesz tylko dostępu do aukcji.',
+    includes: [
+      'Weryfikacja historii VIN (Carfax / AutoCheck)',
+      'Ocena zakresu uszkodzeń i kosztu naprawy',
+      'Licytacja na naszym koncie do ustalonego limitu',
+      'Rozliczenie z aukcją i dokumenty zakupu',
+    ],
+  },
+  {
+    name: 'Import pod klucz',
+    price: 'od 6 900 zł',
+    for: 'Najczęściej wybierany pakiet. Chcesz odebrać gotowe, zarejestrowane auto.',
+    includes: [
+      'Wszystko z pakietu „Wyszukiwanie i licytacja”',
+      'Transport lądowy w USA i fracht morski',
+      'Odprawa celna, VAT, akcyza, tłumaczenia',
+      'Naprawa w naszym warsztacie z gwarancją',
+      'Badanie techniczne i komplet dokumentów do rejestracji',
+      'Transport pod wskazany adres w Polsce',
+    ],
+    featured: true,
+  },
+  {
+    name: 'Transport i odprawa',
+    price: 'od 3 900 zł',
+    for: 'Kupiłeś auto samodzielnie i potrzebujesz sprowadzić je do Polski.',
+    includes: [
+      'Odbiór auta z placu aukcyjnego w USA',
+      'Fracht morski do portu w Europie',
+      'Odprawa celna i rozliczenie akcyzy',
+      'Transport z portu do Ciebie',
+    ],
+  },
+];
+
+const models = [
+  { name: 'Ford Mustang', note: 'V8 5.0 taniej niż w Europie o 25–35%' },
+  { name: 'Dodge Ram 1500', note: 'Pickup praktycznie niedostępny w PL w rozsądnej cenie' },
+  { name: 'Jeep Wrangler', note: 'Wersje Rubicon i Sahara w bogatych konfiguracjach' },
+  { name: 'Chevrolet Camaro', note: 'Rocznik 2016+ w cenie 5-letniego kompaktu' },
+  { name: 'Tesla Model 3 / Y', note: 'Duża podaż po lekkich szkodach, bateria do weryfikacji' },
+  { name: 'Toyota Tundra / Tacoma', note: 'Niezawodne pickupy, mały spadek wartości' },
+];
+
+const excluded = [
+  'Auta po pożarze i z uszkodzeniem struktury nośnej',
+  'Auta zalane (flood damage) — nawet tanie okazje',
+  'Egzemplarze bez tytułu własności lub z tytułem parts only',
+  'Popularne w Europie diesle, przy których import się nie opłaca',
+];
+---
+
+<BaseLayout
+  title="Oferta i cennik importu samochodów z USA"
+  description="Trzy pakiety: sama licytacja na Copart i IAAI, transport z odprawą celną albo pełny import pod klucz z naprawą i dokumentami do rejestracji. Ceny od 2 500 zł."
+  breadcrumbs={[{ name: 'Oferta', href: '/oferta' }]}
+  schemas={[
+    serviceSchema({
+      name: 'Pakiety importu samochodów z USA',
+      description:
+        'Wyszukiwanie i licytacja, transport z odprawą celną oraz pełny import pod klucz z naprawą.',
+      path: '/oferta',
+    }),
+  ]}
+>
+  <PageHero
+    eyebrow="Oferta"
+    title="Wybierz zakres, jaki potrzebujesz"
+    lead="Możemy poprowadzić cały import od pierwszej rozmowy do rejestracji albo wejść tylko na etapie, na którym potrzebujesz wsparcia. Podane kwoty to nasze wynagrodzenie — koszty aukcji, transportu i urzędowe rozliczamy 1:1 według dokumentów."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 lg:grid-cols-3">
+        {
+          packages.map((pkg) => (
+            <article
+              class:list={[
+                'flex flex-col rounded-2xl border p-8',
+                pkg.featured
+                  ? 'border-accent-500 bg-ink-900 text-white shadow-xl ring-1 ring-accent-500'
+                  : 'border-ink-100 bg-white',
+              ]}
+            >
+              {pkg.featured && (
+                <span
+                  class="mb-4 self-start rounded-full bg-accent-500 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-ink-900"
+                >
+                  Najczęściej wybierany
+                </span>
+              )}
+              <h2 class:list={['text-2xl font-extrabold', pkg.featured ? 'text-white' : 'text-ink-900']}>
+                {pkg.name}
+              </h2>
+              <p class:list={['mt-2 text-3xl font-extrabold', pkg.featured ? 'text-accent-400' : 'text-accent-600']}>
+                {pkg.price}
+              </p>
+              <p class:list={['mt-4 text-sm leading-relaxed', pkg.featured ? 'text-ink-300' : 'text-ink-500']}>
+                {pkg.for}
+              </p>
+              <ul class="mt-6 flex-1 space-y-3 text-sm">
+                {pkg.includes.map((item) => (
+                  <li class="flex gap-3">
+                    <svg
+                      class:list={[
+                        'mt-0.5 h-5 w-5 shrink-0',
+                        pkg.featured ? 'text-accent-400' : 'text-accent-600',
+                      ]}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class:list={[pkg.featured ? 'text-ink-100' : 'text-ink-700']}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/kontakt"
+                class:list={[
+                  'mt-8 rounded-lg px-6 py-3.5 text-center font-bold transition-colors',
+                  pkg.featured
+                    ? 'bg-accent-500 text-ink-900 hover:bg-accent-400'
+                    : 'bg-ink-900 text-white hover:bg-ink-800',
+                ]}
+              >
+                Zapytaj o wycenę
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink-50 py-16 sm:py-24">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div>
+        <h2 class="text-3xl font-extrabold tracking-tight text-ink-900">
+          Modele, przy których import ma sens
+        </h2>
+        <p class="mt-4 text-ink-500">
+          Największą różnicę cenową znajdziesz tam, gdzie rynek amerykański ma nadpodaż, a europejski
+          niedobór.
+        </p>
+        <ul class="mt-6 space-y-4">
+          {
+            models.map((model) => (
+              <li class="rounded-xl bg-white p-4 shadow-sm">
+                <p class="font-bold text-ink-900">{model.name}</p>
+                <p class="mt-1 text-sm text-ink-500">{model.note}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-3xl font-extrabold tracking-tight text-ink-900">Czego nie sprowadzamy</h2>
+        <p class="mt-4 text-ink-500">
+          Odmawiamy zakupu aut, których nie kupilibyśmy dla siebie. Mniej zleceń, ale też mniej
+          reklamacji.
+        </p>
+        <ul class="mt-6 space-y-4">
+          {
+            excluded.map((item) => (
+              <li class="flex gap-3 rounded-xl border border-ink-100 bg-white p-4">
+                <svg
+                  class="mt-0.5 h-5 w-5 shrink-0 text-red-500"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  aria-hidden="true"
+                >
+                  <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"></path>
+                </svg>
+                <span class="text-ink-700">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+</BaseLayout>

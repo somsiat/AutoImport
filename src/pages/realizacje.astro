@@ -1,0 +1,109 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import PageHero from '~/components/PageHero.astro';
+import CtaBanner from '~/components/CtaBanner.astro';
+import { projects, testimonials } from '~/data/content';
+
+const parsePln = (value: string) => Number(value.replace(/[^\d]/g, ''));
+const savings = (project: (typeof projects)[number]) =>
+  parsePln(project.marketPl) - parsePln(project.totalPl);
+const formatPln = (value: number) => `${value.toLocaleString('pl-PL')} zł`;
+---
+
+<BaseLayout
+  title="Realizacje — samochody sprowadzone z USA"
+  description="Konkretne rozliczenia sprowadzonych aut: cena z aukcji Copart i IAAI, koszt końcowy w Polsce, zakres uszkodzeń i czas realizacji. Mustang, Wrangler, Tesla, Ram."
+  breadcrumbs={[{ name: 'Realizacje', href: '/realizacje' }]}
+>
+  <PageHero
+    eyebrow="Realizacje"
+    title="Auta, które sprowadziliśmy — z pełnym rozliczeniem"
+    lead="Pokazujemy liczby, nie slogany: co kosztowało auto na aukcji, ile wyniósł koszt końcowy w Polsce i jak wypada to na tle rynku krajowego."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          projects.map((project) => (
+            <article class="flex flex-col overflow-hidden rounded-2xl border border-ink-100 shadow-sm">
+              <div class="grid aspect-[16/10] place-items-center bg-ink-100 text-sm text-ink-500">
+                {/* TODO(klient): zdjecia aut - najlepiej 3-4 na realizacje, galeria. */}
+                Zdjęcie: {project.title}
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <h2 class="text-xl font-bold text-ink-900">
+                  {project.title}
+                  <span class="font-medium text-ink-500"> ({project.year})</span>
+                </h2>
+
+                <dl class="mt-5 space-y-2.5 text-sm">
+                  <div class="flex justify-between gap-4">
+                    <dt class="text-ink-500">Aukcja</dt>
+                    <dd class="text-right font-medium">{project.auction}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="text-ink-500">Uszkodzenia</dt>
+                    <dd class="text-right font-medium">{project.damage}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="text-ink-500">Cena na aukcji</dt>
+                    <dd class="text-right font-medium">{project.priceUsa}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="text-ink-500">Czas realizacji</dt>
+                    <dd class="text-right font-medium">{project.days} dni</dd>
+                  </div>
+                  <div class="flex justify-between gap-4 border-t border-ink-100 pt-2.5">
+                    <dt class="font-semibold text-ink-700">Koszt końcowy</dt>
+                    <dd class="text-right text-lg font-extrabold text-ink-900">{project.totalPl}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="text-ink-500">Podobne auto w PL</dt>
+                    <dd class="text-right font-medium text-ink-500 line-through">{project.marketPl}</dd>
+                  </div>
+                </dl>
+
+                <p
+                  class="mt-5 rounded-lg bg-accent-500/15 px-4 py-3 text-center text-sm font-bold text-accent-600"
+                >
+                  Oszczędność: {formatPln(savings(project))}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mt-10 text-sm text-ink-500">
+        Ceny rynkowe w Polsce ustalone na podstawie ogłoszeń porównywalnych egzemplarzy z dnia
+        odbioru auta. Podane kwoty obejmują pełny koszt sprowadzenia razem z naprawą i naszą
+        prowizją.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-ink-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-extrabold tracking-tight text-ink-900">Opinie klientów</h2>
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        {
+          testimonials.map((t) => (
+            <figure class="flex flex-col rounded-2xl bg-white p-6 shadow-sm">
+              <blockquote class="flex-1 leading-relaxed text-ink-700">„{t.text}”</blockquote>
+              <figcaption class="mt-5 border-t border-ink-100 pt-4 text-sm">
+                <span class="font-bold text-ink-900">{t.name}</span>
+                <span class="text-ink-500">, {t.city} — {t.car}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Chcesz podobne auto w swoim budżecie?"
+    body="Napisz, jaki model i kwotę masz na myśli. Sprawdzimy aktualne aukcje i wyślemy wycenę pod klucz."
+  />
+</BaseLayout>
