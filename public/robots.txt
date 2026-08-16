@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Sitemap generowany przez @astrojs/sitemap podczas builda.
-Sitemap: https://import-aut.pl/sitemap-index.xml
