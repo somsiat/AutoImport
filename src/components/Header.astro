@@ -1,19 +1,88 @@
 ---
-import { site } from '../data/site.js';
+import { site, whatsappHref } from '../data/site.js';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href) => path === href || (href !== '/' && path.startsWith(href + '/'));
 ---
 
-<header class="bg-white border-b border-slate-200">
+<header class="sticky top-0 z-50 bg-white/95 border-b border-slate-200 backdrop-blur">
 	<div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-4">
 		<a href="/" class="text-xl font-bold text-blue-600">
 			AutoImport <span class="text-slate-900">USA</span>
 		</a>
-		<nav class="flex items-center gap-6">
-			<a href="/o-nas" class="text-slate-700 hover:text-blue-600">O nas</a>
-			<a href="/auta" class="text-slate-700 hover:text-blue-600">Auta</a>
-			<a href="/kontakt" class="text-slate-700 hover:text-blue-600">Kontakt</a>
-			<a href={`https://wa.me/${site.whatsappNumber}`} class="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600">
+
+		<nav class="hidden md:flex items-center gap-6" aria-label="Menu główne">
+			{
+				site.nav.map((item) => (
+					<a
+						href={item.href}
+						aria-current={isActive(item.href) ? 'page' : undefined}
+						class:list={[
+							'hover:text-blue-600',
+							isActive(item.href) ? 'text-blue-600 font-semibold' : 'text-slate-700',
+						]}
+					>
+						{item.label}
+					</a>
+				))
+			}
+			<a
+				href={whatsappHref()}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600"
+			>
 				WhatsApp
+			</a>
+		</nav>
+
+		<button
+			type="button"
+			id="menu-toggle"
+			class="md:hidden grid h-10 w-10 place-items-center rounded-lg border border-slate-200 text-slate-800"
+			aria-controls="mobile-menu"
+			aria-expanded="false"
+			aria-label="Otwórz menu"
+		>
+			<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"></path>
+			</svg>
+		</button>
+	</div>
+
+	<div id="mobile-menu" hidden class="md:hidden border-t border-slate-200 bg-white">
+		<nav class="mx-auto flex max-w-5xl flex-col px-4 py-3" aria-label="Menu mobilne">
+			{
+				site.nav.map((item) => (
+					<a
+						href={item.href}
+						aria-current={isActive(item.href) ? 'page' : undefined}
+						class="rounded-md px-3 py-3 text-slate-800 hover:bg-slate-50"
+					>
+						{item.label}
+					</a>
+				))
+			}
+			<a
+				href={whatsappHref()}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="mt-2 rounded-lg bg-green-500 px-3 py-3 text-center font-semibold text-white hover:bg-green-600"
+			>
+				Napisz na WhatsApp
 			</a>
 		</nav>
 	</div>
 </header>
+
+<script>
+	const toggle = document.getElementById('menu-toggle');
+	const menu = document.getElementById('mobile-menu');
+
+	toggle?.addEventListener('click', () => {
+		const open = toggle.getAttribute('aria-expanded') === 'true';
+		toggle.setAttribute('aria-expanded', String(!open));
+		toggle.setAttribute('aria-label', open ? 'Otwórz menu' : 'Zamknij menu');
+		if (menu) menu.hidden = open;
+	});
+</script>

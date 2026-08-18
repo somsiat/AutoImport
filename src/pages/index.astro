@@ -1,47 +1,193 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site.js';
+import { groupHref, whatsappHref } from '../data/site.js';
+import { benefits, cars, faq, stats, steps, testimonials } from '../data/content.js';
 ---
 
 <BaseLayout title="AutoImport USA - sprowadzanie samochodów z USA">
-	<main>
-		<section class="max-w-5xl mx-auto px-4 py-16 text-center">
-			<h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">
+	<section class="relative overflow-hidden text-center text-white">
+		<img
+			src="/images/hero.png"
+			alt=""
+			width="1920"
+			height="1080"
+			class="absolute inset-0 h-full w-full object-cover object-center"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/50 to-slate-950/70" aria-hidden="true"></div>
+		<div class="relative max-w-5xl mx-auto px-4 py-20 md:py-28">
+			<a
+				href={groupHref()}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 pr-4 backdrop-blur-sm hover:bg-white/15"
+			>
+				<span class="flex -space-x-2" aria-hidden="true">
+					<span class="grid h-7 w-7 place-items-center rounded-full bg-blue-500 text-[10px] font-bold ring-2 ring-slate-900">MK</span>
+					<span class="grid h-7 w-7 place-items-center rounded-full bg-emerald-500 text-[10px] font-bold ring-2 ring-slate-900">AW</span>
+					<span class="grid h-7 w-7 place-items-center rounded-full bg-amber-500 text-[10px] font-bold ring-2 ring-slate-900">TL</span>
+				</span>
+				<span class="text-sm font-medium text-white">
+					Dołącz do grona <span class="font-bold">850+ klientów</span>
+				</span>
+			</a>
+			<p class="mt-5 text-sm font-semibold uppercase tracking-wider text-blue-300">Copart · IAAI · licytacje na własnych kontach</p>
+			<h1 class="mt-4 text-4xl md:text-5xl font-bold mb-4">
 				Sprowadzamy samochody z USA - szybko i bezpiecznie
 			</h1>
-			<p class="text-lg text-slate-700 mb-8 max-w-2xl mx-auto">
-			Jesteśmy zespołem specjalizującym się w imporcie samochodów z aukcji amerykańskich. Prowadzimy Cię przez cały proces — od wyboru auta do odbioru w Polsce.</p>
+			<p class="text-lg text-slate-200 mb-8 max-w-2xl mx-auto">
+				Cenę „pod klucz” - auto, transport, cło, akcyzę i naprawę - ustalamy
+				<strong class="text-white">przed licytacją</strong>. Prowadzimy Cię przez cały proces, od wyboru auta do odbioru w Polsce.
+			</p>
+			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+				<a href="/kontakt" class="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-500">
+					Darmowa wycena
+				</a>
+				<a href="/auta" class="inline-block px-8 py-4 rounded-lg font-semibold text-lg text-white border border-white/40 hover:bg-white/10">
+					Zobacz sprowadzone auta →
+				</a>
+			</div>
 
-			<a href="/o-nas" class="text-blue-600 font-semibold hover:underline">
-				Czytaj więcej →
-			</a>
-			<br>
-			<br>
-			<a href={`https://wa.me/${site.whatsappNumber}`} class="inline-block bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600">
-				Napisz na WhatsApp
-			</a>
-		</section>
+			<dl class="mt-14 grid grid-cols-2 gap-6 border-t border-white/20 pt-8 md:grid-cols-4">
+				{
+					stats.map((stat) => (
+						<div>
+							<dt class="sr-only">{stat.label}</dt>
+							<dd>
+								<span class="block text-2xl font-bold text-white">{stat.value}</span>
+								<span class="mt-1 block text-sm text-slate-300">{stat.label}</span>
+							</dd>
+						</div>
+					))
+				}
+			</dl>
+		</div>
+	</section>
 
-		<section class="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
-			<div class="bg-white rounded-lg border border-slate-200 p-6 text-center">
-				<h2 class="font-semibold text-slate-900 mb-2">Sprawdzone aukcje</h2>
-				<p class="text-slate-700 text-sm">
-					Korzystamy z Copart i IAAI — pełna historia i stan techniczny auta przed zakupem.
-				</p>
+	<section class="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
+		{
+			benefits.map((item) => (
+				<div class="bg-white rounded-lg border border-slate-200 p-6">
+					<h2 class="font-semibold text-slate-900 mb-2">{item.title}</h2>
+					<p class="text-slate-700 text-sm leading-relaxed">{item.body}</p>
+				</div>
+			))
+		}
+	</section>
+
+	<section class="bg-white border-y border-slate-200">
+		<div class="max-w-5xl mx-auto px-4 py-16">
+			<h2 class="text-3xl font-bold text-slate-900">Jak wygląda sprowadzenie auta</h2>
+			<p class="mt-3 text-slate-600 max-w-2xl">
+				Cały proces zajmuje zwykle 8–12 tygodni. Na każdym etapie dostajesz zdjęcia i status na WhatsAppie.
+			</p>
+			<ol class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					steps.map((step, i) => (
+						<li class="rounded-lg border border-slate-200 p-6">
+							<span class="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-sm font-bold text-white">
+								{i + 1}
+							</span>
+							<h3 class="mt-4 font-semibold text-slate-900">{step.title}</h3>
+							<p class="mt-2 text-sm leading-relaxed text-slate-600">{step.body}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section class="max-w-5xl mx-auto px-4 py-16">
+		<div class="flex flex-wrap items-end justify-between gap-4">
+			<div>
+				<h2 class="text-3xl font-bold text-slate-900">Ostatnio sprowadzone auta</h2>
+				<p class="mt-3 text-slate-600">Cena z aukcji, koszt końcowy w Polsce i porównanie z rynkiem krajowym.</p>
 			</div>
-			<div class="bg-white rounded-lg border border-slate-200 p-6 text-center">
-				<h2 class="font-semibold text-slate-900 mb-2">Pełna dokumentacja</h2>
-				<p class="text-slate-700 text-sm">
-					Zajmujemy się formalnościami celnymi i rejestracją — Ty nie musisz się w to zagłębiać.
-				</p>
+			<a href="/auta" class="font-semibold text-blue-600 hover:underline">Wszystkie auta →</a>
+		</div>
+		<div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				cars.slice(0, 3).map((car) => (
+					<article class="flex flex-col rounded-lg border border-slate-200 bg-white p-6">
+						<h3 class="text-lg font-semibold text-slate-900">
+							{car.title} <span class="text-slate-500">({car.year})</span>
+						</h3>
+						<dl class="mt-4 space-y-2 text-sm">
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Aukcja</dt>
+								<dd class="text-right font-medium">{car.auction}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Uszkodzenia</dt>
+								<dd class="text-right font-medium">{car.damage}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Koszt końcowy</dt>
+								<dd class="text-right font-bold text-slate-900">{car.totalPl}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Rynek PL</dt>
+								<dd class="text-right text-slate-500 line-through">{car.marketPl}</dd>
+							</div>
+						</dl>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="bg-white border-y border-slate-200">
+		<div class="max-w-5xl mx-auto px-4 py-16">
+			<h2 class="text-3xl font-bold text-slate-900">Co mówią klienci</h2>
+			<div class="mt-10 grid gap-6 lg:grid-cols-3">
+				{
+					testimonials.map((t) => (
+						<figure class="rounded-lg border border-slate-200 p-6">
+							<blockquote class="leading-relaxed text-slate-700">„{t.text}”</blockquote>
+							<figcaption class="mt-4 border-t border-slate-100 pt-4 text-sm">
+								<span class="font-semibold text-slate-900">{t.name}</span>
+								<span class="text-slate-500">, {t.city} - {t.car}</span>
+							</figcaption>
+						</figure>
+					))
+				}
 			</div>
-			<div class="bg-white rounded-lg border border-slate-200 p-6 text-center">
-				<h2 class="font-semibold text-slate-900 mb-2">Wsparcie na każdym etapie</h2>
-				<p class="text-slate-700 text-sm">
-					Informujemy Cię o statusie auta od zakupu aż do odbioru.
-				</p>
+		</div>
+	</section>
+
+	<section class="max-w-5xl mx-auto px-4 py-16">
+		<h2 class="text-3xl font-bold text-slate-900">Najczęstsze pytania</h2>
+		<p class="mt-3 text-slate-600">Jeśli czegoś brakuje - napisz na WhatsAppie, odpowiadamy tego samego dnia.</p>
+		<div class="mt-8 space-y-3">
+			{
+				faq.map((item) => (
+					<details class="rounded-lg border border-slate-200 bg-white px-5 py-4">
+						<summary class="cursor-pointer font-semibold text-slate-900">{item.q}</summary>
+						<p class="mt-3 text-sm leading-relaxed text-slate-600">{item.a}</p>
+					</details>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="max-w-5xl mx-auto px-4 pb-16">
+		<div class="rounded-lg bg-blue-600 px-6 py-10 text-center text-white">
+			<h2 class="text-2xl font-bold">Chcesz wiedzieć, ile wyjdzie Twoje auto?</h2>
+			<p class="mt-3 text-blue-100 max-w-xl mx-auto">
+				Napisz model, rocznik i budżet. W ciągu 2 godzin roboczych dostaniesz konkretną wycenę - nie ogólniki.
+			</p>
+			<div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+				<a
+					href={whatsappHref('Cześć, chcę wycenić sprowadzenie auta z USA.')}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-block rounded-lg bg-green-500 px-6 py-3 font-semibold hover:bg-green-600"
+				>
+					WhatsApp
+				</a>
+				<a href="/kontakt" class="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-blue-600 hover:bg-blue-50">
+					Formularz kontaktowy
+				</a>
 			</div>
-		</section>
-	</main>
+		</div>
+	</section>
 </BaseLayout>
-

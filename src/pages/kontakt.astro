@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site, whatsappHref } from '../data/site.js';
+---
+
+<BaseLayout
+	title="Kontakt - AutoImport USA"
+	description={`Napisz lub zadzwoń: ${site.phone}. Bezpłatna wycena importu samochodu z USA w ciągu 2 godzin roboczych.`}
+>
+	<section class="max-w-5xl mx-auto px-4 py-12">
+		<h1 class="text-3xl font-bold text-blue-600 mb-3">Kontakt</h1>
+		<p class="text-slate-700 max-w-2xl mb-10">
+			Powiedz, jakie auto szukasz. Na każde zapytanie odpowiadamy w ciągu 2 godzin roboczych konkretną wyceną.
+		</p>
+
+		<div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+			<div>
+				<h2 class="text-xl font-semibold text-slate-900 mb-2">Formularz wyceny</h2>
+				<p class="text-sm text-slate-600 mb-6">Im więcej szczegółów podasz, tym trafniejszą wycenę wyślemy.</p>
+				<ContactForm />
+			</div>
+
+			<aside class="space-y-6">
+				<div class="rounded-lg bg-slate-900 p-6 text-white">
+					<h2 class="text-xl font-semibold">Szybki kontakt</h2>
+					<ul class="mt-5 space-y-4 text-sm">
+						<li>
+							<p class="text-slate-400">Telefon</p>
+							<a href={site.phoneHref} class="text-lg font-semibold text-white hover:underline">
+								{site.phone}
+							</a>
+						</li>
+						<li>
+							<p class="text-slate-400">E-mail</p>
+							<a href={`mailto:${site.email}`} class="font-semibold hover:underline">{site.email}</a>
+						</li>
+						<li>
+							<p class="text-slate-400">Godziny pracy</p>
+							<p class="font-semibold">{site.hours}</p>
+						</li>
+						<li>
+							<p class="text-slate-400">Adres</p>
+							<p class="font-semibold">{site.address}</p>
+						</li>
+					</ul>
+					<a
+						href={whatsappHref('Cześć, chcę wycenić sprowadzenie auta z USA.')}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="mt-6 block rounded-lg bg-green-500 px-4 py-3 text-center font-semibold hover:bg-green-600"
+					>
+						Napisz na WhatsApp
+					</a>
+				</div>
+			</aside>
+		</div>
+	</section>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site.js';
+---
+
+<BaseLayout
+	title="Polityka prywatności - AutoImport USA"
+	description="Informacje o przetwarzaniu danych osobowych na stronie AutoImport USA."
+>
+	<section class="max-w-3xl mx-auto px-4 py-12 prose prose-slate">
+		<h1 class="text-3xl font-bold text-blue-600 mb-6">Polityka prywatności</h1>
+		<div class="space-y-6 text-slate-700 leading-relaxed">
+			<p>
+				Administratorem danych osobowych jest {site.legalName}, {site.address}, e-mail:
+				<a href={`mailto:${site.email}`} class="text-blue-600 underline">{site.email}</a>.
+			</p>
+			<p>
+				Dane podane w formularzu kontaktowym lub w wiadomości na WhatsAppie (imię, telefon, e-mail, treść
+				zapytania) przetwarzamy wyłącznie w celu odpowiedzi na Twoje zgłoszenie i przygotowania wyceny importu
+				samochodu. Podstawą jest Twoja zgoda oraz nasz uzasadniony interes (art. 6 ust. 1 lit. a i f RODO).
+			</p>
+			<p>
+				Dane przechowujemy przez czas potrzebny do obsługi zapytania, a potem nie dłużej niż 12 miesięcy, chyba
+				że wcześniej poprosisz o ich usunięcie. Nie sprzedajemy danych osobom trzecim.
+			</p>
+			<p>
+				Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania oraz
+				wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.
+			</p>
+			<p>
+				Strona używa wyłącznie niezbędnych plików cookies związanych z działaniem serwisu. Nie stosujemy
+				narzędzi analitycznych ani reklamowych bez Twojej zgody.
+			</p>
+			<p>
+				W sprawach związanych z ochroną danych napisz na
+				<a href={`mailto:${site.email}`} class="text-blue-600 underline">{site.email}</a>.
+			</p>
+		</div>
+	</section>
+</BaseLayout>

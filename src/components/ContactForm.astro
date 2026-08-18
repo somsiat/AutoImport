@@ -1,0 +1,140 @@
+---
+import { site, whatsappHref } from '../data/site.js';
+
+const budgets = [
+	'do 60 000 zł',
+	'60 000 – 100 000 zł',
+	'100 000 – 150 000 zł',
+	'150 000 – 250 000 zł',
+	'powyżej 250 000 zł',
+];
+---
+
+<form id="contact-form" class="grid gap-5 rounded-lg border border-slate-200 bg-white p-6">
+	<div class="grid gap-5 sm:grid-cols-2">
+		<div>
+			<label for="name" class="block text-sm font-semibold text-slate-700">
+				Imię i nazwisko <span class="text-blue-600">*</span>
+			</label>
+			<input
+				type="text"
+				id="name"
+				name="name"
+				required
+				autocomplete="name"
+				class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+			/>
+		</div>
+		<div>
+			<label for="phone" class="block text-sm font-semibold text-slate-700">
+				Telefon <span class="text-blue-600">*</span>
+			</label>
+			<input
+				type="tel"
+				id="phone"
+				name="phone"
+				required
+				autocomplete="tel"
+				placeholder="+48 600 000 000"
+				class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+			/>
+		</div>
+	</div>
+
+	<div class="grid gap-5 sm:grid-cols-2">
+		<div>
+			<label for="email" class="block text-sm font-semibold text-slate-700">E-mail</label>
+			<input
+				type="email"
+				id="email"
+				name="email"
+				autocomplete="email"
+				class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+			/>
+		</div>
+		<div>
+			<label for="budget" class="block text-sm font-semibold text-slate-700">Budżet „pod klucz”</label>
+			<select
+				id="budget"
+				name="budget"
+				class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+			>
+				<option value="">Wybierz zakres</option>
+				{budgets.map((b) => <option value={b}>{b}</option>)}
+			</select>
+		</div>
+	</div>
+
+	<div>
+		<label for="car" class="block text-sm font-semibold text-slate-700">Jakie auto Cię interesuje?</label>
+		<input
+			type="text"
+			id="car"
+			name="car"
+			placeholder="np. Ford Mustang GT, rocznik 2018+"
+			class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+		/>
+	</div>
+
+	<div>
+		<label for="message" class="block text-sm font-semibold text-slate-700">Wiadomość</label>
+		<textarea
+			id="message"
+			name="message"
+			rows="4"
+			class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+		></textarea>
+	</div>
+
+	<div class="flex items-start gap-3">
+		<input
+			type="checkbox"
+			id="consent"
+			name="consent"
+			required
+			value="tak"
+			class="mt-1 h-5 w-5 shrink-0 rounded border-slate-300"
+		/>
+		<label for="consent" class="text-sm leading-relaxed text-slate-600">
+			Zgadzam się na kontakt w sprawie mojego zapytania oraz na przetwarzanie danych zgodnie z
+			<a href="/polityka-prywatnosci" class="font-semibold text-blue-600 underline">polityką prywatności</a>.
+			<span class="text-blue-600">*</span>
+		</label>
+	</div>
+
+	<button
+		type="submit"
+		class="rounded-lg bg-green-500 px-6 py-4 text-base font-semibold text-white hover:bg-green-600"
+	>
+		Wyślij zapytanie na WhatsApp
+	</button>
+
+	<p class="text-center text-sm text-slate-500">
+		Wolisz zadzwonić?
+		<a href={site.phoneHref} class="font-semibold text-blue-600 underline">{site.phone}</a>
+		albo napisać na
+		<a href={`mailto:${site.email}`} class="font-semibold text-blue-600 underline">{site.email}</a>.
+	</p>
+</form>
+
+<script>
+	import { whatsappHref } from '../data/site.js';
+
+	const form = document.getElementById('contact-form');
+
+	form?.addEventListener('submit', (event) => {
+		event.preventDefault();
+		const data = new FormData(form);
+
+		const lines = [
+			`Cześć, nazywam się ${data.get('name')}.`,
+			`Telefon: ${data.get('phone')}`,
+		];
+		if (data.get('email')) lines.push(`E-mail: ${data.get('email')}`);
+		if (data.get('budget')) lines.push(`Budżet: ${data.get('budget')}`);
+		if (data.get('car')) lines.push(`Interesuje mnie: ${data.get('car')}`);
+		if (data.get('message')) lines.push('', String(data.get('message')));
+
+		window.open(whatsappHref(lines.join('\n')), '_blank', 'noopener,noreferrer');
+	});
+</script>

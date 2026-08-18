@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { whatsappHref } from '../data/site.js';
+import { cars } from '../data/content.js';
+---
+
+<BaseLayout
+	title="Sprowadzone auta - AutoImport USA"
+	description="Przykładowe realizacje importu z USA: cena z aukcji, koszt końcowy w Polsce i porównanie z rynkiem krajowym."
+>
+	<section class="max-w-5xl mx-auto px-4 py-12">
+		<h1 class="text-3xl font-bold text-blue-600 mb-3">Sprowadzone auta</h1>
+		<p class="text-slate-700 max-w-2xl mb-10">
+			Prawdziwe rozliczenia z ostatnich importów. Koszt końcowy obejmuje auto, transport, cło, akcyzę i naprawę.
+			Chcesz podobne auto? Napisz model i budżet - sprawdzimy, co da się kupić.
+		</p>
+
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				cars.map((car) => (
+					<article class="flex flex-col rounded-lg border border-slate-200 bg-white p-6">
+						<h2 class="text-lg font-semibold text-slate-900">
+							{car.title} <span class="text-slate-500">({car.year})</span>
+						</h2>
+						<dl class="mt-4 space-y-2 text-sm flex-1">
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Aukcja</dt>
+								<dd class="text-right font-medium">{car.auction}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Uszkodzenia</dt>
+								<dd class="text-right font-medium">{car.damage}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Cena USA</dt>
+								<dd class="text-right font-medium">{car.priceUsa}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Koszt końcowy</dt>
+								<dd class="text-right font-bold text-slate-900">{car.totalPl}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Rynek PL</dt>
+								<dd class="text-right text-slate-500 line-through">{car.marketPl}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-slate-500">Czas</dt>
+								<dd class="text-right font-medium">{car.days} dni</dd>
+							</div>
+						</dl>
+						<a
+							href={whatsappHref(`Cześć, interesuje mnie auto w stylu ${car.title} ${car.year}.`)}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="mt-5 rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-semibold text-white hover:bg-green-600"
+						>
+							Zapytaj o podobne
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</BaseLayout>
